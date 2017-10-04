@@ -10,7 +10,7 @@ additional classes associated with each of the machine learning types for suppor
 
 With that jargon out of the way, here is a current list of machine learning things I have built.
 
-1. Perceptron
+1. <a href="#Perceptron
 2. Simple Neural Network (Basic cost function, 1 hidden layer, prebuilt to read MINST data).
 
 As I continue teaching myself, this list will grow, so enjoy!
@@ -53,14 +53,14 @@ Once these additional things are added, I believe I will be home free to continu
 
 Other areas to be pursued:
 Genetic algorithms -- Finds probable optimizations on weird data sets
-                   -- (Most value if can take 1 pound, 500 different things with different weights and values...)
+                   (Most value if can take 1 pound, 500 different things with different weights and values...)
 
 Reinforcement Learning -- Agents learn in environment meaning you don't need initial training data
 
 Generative Learning -- The ability to "copy". Given a bunch of hand written 5's, output your own 5.
 
 Networks with Memory -- Traditional NN "forgets" previous learning when switched to a new task. Can you stop that?
-                     -- This includes: long-short term memory networks, elastic weight consolidation, and progressive neural networks
+                     This includes: long-short term memory networks, elastic weight consolidation, and progressive neural networks
 
 Less Data, Smaller Models -- Can simpler NN's learn from complex ones to reduce the training time? Transfer training...
 

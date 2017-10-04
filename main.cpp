@@ -1,8 +1,8 @@
-#include "Perceptron.hpp"
-#include "Matrix.hpp"
+#include "Perceptron/Perceptron.hpp"
+#include "HelperClasses/Matrix.hpp"
 #include <math.h>
-#include "SimpleNeuralNetwork.hpp"
-#include "MINSTHelper.hpp"
+#include "SimpleNeuralNetwork/SimpleNeuralNetwork.hpp"
+#include "HelperClasses/MINSTHelper.hpp"
 #include <time.h>
 #include <iomanip>
 

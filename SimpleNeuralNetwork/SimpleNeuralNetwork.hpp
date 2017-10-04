@@ -5,7 +5,7 @@
 #ifndef NEURALNETWORKS_SIMPLENEURALNETWORK_HPP
 #define NEURALNETWORKS_SIMPLENEURALNETWORK_HPP
 
-#include "Matrix.hpp"
+#include "../HelperClasses/Matrix.hpp"
 #include <random>
 
 
