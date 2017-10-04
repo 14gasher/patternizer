@@ -10,6 +10,7 @@
 
 
 class Perceptron{
+
 private:
   float* weights = nullptr;
   float c = 0.00001;
