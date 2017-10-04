@@ -10,6 +10,7 @@
 const unsigned int POPULATION = 60000;
 const unsigned int PIXEL_COUNT = 784;
 
+void perceptronDemo();
 void nnTester(SimpleNeuralNetwork &digitProcessor, MINSTHelper &helper);
 void nnTrainer(SimpleNeuralNetwork &nn, MINSTHelper &helper);
 
@@ -131,7 +132,7 @@ void nnTester(SimpleNeuralNetwork &digitProcessor, MINSTHelper &helper){
 
 
 
-/*
+
 void perceptronDemo(){
   float m, b;
   std::cout << "Please enter the slope of the line: ";
@@ -161,5 +162,3 @@ void perceptronDemo(){
     std::cout << "This is below the line" << std::endl;
   }
 }
-
- */
