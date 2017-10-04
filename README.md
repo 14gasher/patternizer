@@ -12,8 +12,8 @@ additional classes associated with each of the machine learning types for suppor
 With that jargon out of the way, here is a current list of machine learning things I have built.
 
 1. <a href="#perceptron">Perceptron</a>
-2. <a href="simpleNN">Simple Neural Network</a> (Basic cost function, 1 hidden layer, prebuilt to read MINST data).
-3. <a href="future"> Future </a>
+2. <a href="#simpleNN">Simple Neural Network</a> (Basic cost function, 1 hidden layer, prebuilt to read MINST data).
+3. <a href="#future"> Future </a>
 
 As I continue teaching myself, this list will grow, so enjoy!
 
