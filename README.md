@@ -1,7 +1,8 @@
 # patternizer
+____________
 
 ## Introduction
-____________
+
 
 Hey y'all, so this is my repo for learning about machine learning. Everything is written in c++ using only the standard
 library. I know, I know, there are fast libraries out there, but the point of this exercise was not to build something
@@ -11,15 +12,15 @@ additional classes associated with each of the machine learning types for suppor
 With that jargon out of the way, here is a current list of machine learning things I have built.
 
 1. <a href="#perceptron">Perceptron</a>
-2. <a href="simpleNN>Simple Neural Network</a> (Basic cost function, 1 hidden layer, prebuilt to read MINST data).
+2. <a href="simpleNN">Simple Neural Network</a> (Basic cost function, 1 hidden layer, prebuilt to read MINST data).
 3. <a href="future"> Future </a>
 
 As I continue teaching myself, this list will grow, so enjoy!
 
 
-
-## <a id="perceptron">Perceptron</a>
 __________
+## <a id="perceptron">Perceptron</a>
+
 
 Being the among the oldest flavors of machine learning, I've implemented one of my one.
 It works like you'd expect. Train it by giving an input and a target output, and it will adjust its
@@ -28,9 +29,9 @@ weight until it gets where it should be.
 In main.cpp, there is a function demonstrating how the class works called perceptronDemo.
 
 
+_____________________
 
 ## <a id="simpleNN">Simple Neural Network</a>
-_____________________
 
 Moving up the chain, I've implemented a simple neural network. It uses the Quadratic Cost Function ((target - output)^2)/2,
 allows you to define a learning rate, and to define the number of inputs, hidden layer neurons, and outputs. It's pretty slick...
@@ -42,9 +43,9 @@ but that may come with time. Also, there is a class to convert the MINST data fr
 In main.cpp, you will find main.cpp implementing, training, and testing a SimpleNeuralNetwork instance.
 
 
-
-## <a id="future">Future</a>
 ______
+## <a id="future">Future</a>
+
 
 The next step will be making the "Simple" Neural Network more complex. This includes adding regularization techniques,
 having the option of different cost functions including the cross-entropy cost function, and adding momentum to the gradient
