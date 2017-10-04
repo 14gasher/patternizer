@@ -54,19 +54,20 @@ descent.
 Once these additional things are added, I believe I will be home free to continue onwards to a "deep" Network.
 
 Other areas to be pursued:
-Genetic algorithms -- Finds probable optimizations on weird data sets
+
+**Genetic algorithms** -- Finds probable optimizations on weird data sets
                    (Most value if can take 1 pound, 500 different things with different weights and values...)
 
-Reinforcement Learning -- Agents learn in environment meaning you don't need initial training data
+**Reinforcement Learning** -- Agents learn in environment meaning you don't need initial training data
 
-Generative Learning -- The ability to "copy". Given a bunch of hand written 5's, output your own 5.
+**Generative Learning** -- The ability to "copy". Given a bunch of hand written 5's, output your own 5.
 
-Networks with Memory -- Traditional NN "forgets" previous learning when switched to a new task. Can you stop that?
+**Networks with Memory** -- Traditional NN "forgets" previous learning when switched to a new task. Can you stop that?
                      This includes: long-short term memory networks, elastic weight consolidation, and progressive neural networks
 
-Less Data, Smaller Models -- Can simpler NN's learn from complex ones to reduce the training time? Transfer training...
+**Less Data, Smaller Models** -- Can simpler NN's learn from complex ones to reduce the training time? Transfer training...
 
-Environment Creation -- We can't really just let a robot ai run wild... create a virtual environment and have ai learn there...
+**Environment Creation** -- We can't really just let a robot ai run wild... create a virtual environment and have ai learn there...
 
 
 
