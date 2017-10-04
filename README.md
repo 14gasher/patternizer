@@ -10,14 +10,14 @@ additional classes associated with each of the machine learning types for suppor
 
 With that jargon out of the way, here is a current list of machine learning things I have built.
 
-1. <a href="#Perceptron
+1. <a href="#perceptron">Perceptron</a>
 2. Simple Neural Network (Basic cost function, 1 hidden layer, prebuilt to read MINST data).
 
 As I continue teaching myself, this list will grow, so enjoy!
 
 
 
-Perceptron
+<a id="perceptron">Perceptron</a>
 __________
 
 Being the among the oldest flavors of machine learning, I've implemented one of my one.
