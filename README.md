@@ -1,6 +1,6 @@
 # patternizer
 
-Introduction
+## Introduction
 ____________
 
 Hey y'all, so this is my repo for learning about machine learning. Everything is written in c++ using only the standard
@@ -11,13 +11,14 @@ additional classes associated with each of the machine learning types for suppor
 With that jargon out of the way, here is a current list of machine learning things I have built.
 
 1. <a href="#perceptron">Perceptron</a>
-2. Simple Neural Network (Basic cost function, 1 hidden layer, prebuilt to read MINST data).
+2. <a href="simpleNN>Simple Neural Network</a> (Basic cost function, 1 hidden layer, prebuilt to read MINST data).
+3. <a href="future"> Future </a>
 
 As I continue teaching myself, this list will grow, so enjoy!
 
 
 
-<a id="perceptron">Perceptron</a>
+## <a id="perceptron">Perceptron</a>
 __________
 
 Being the among the oldest flavors of machine learning, I've implemented one of my one.
@@ -28,7 +29,7 @@ In main.cpp, there is a function demonstrating how the class works called percep
 
 
 
-Simple Neural Network
+## <a id="simpleNN">Simple Neural Network</a>
 _____________________
 
 Moving up the chain, I've implemented a simple neural network. It uses the Quadratic Cost Function ((target - output)^2)/2,
@@ -42,7 +43,7 @@ In main.cpp, you will find main.cpp implementing, training, and testing a Simple
 
 
 
-Future
+## <a id="future">Future</a>
 ______
 
 The next step will be making the "Simple" Neural Network more complex. This includes adding regularization techniques,
