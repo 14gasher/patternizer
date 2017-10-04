@@ -3,25 +3,88 @@
 #include <math.h>
 #include "SimpleNeuralNetwork/SimpleNeuralNetwork.hpp"
 #include "HelperClasses/MINSTHelper.hpp"
-#include <time.h>
 #include <iomanip>
 
 
 const unsigned int POPULATION = 60000;
 const unsigned int PIXEL_COUNT = 784;
 
+/**
+ * This will demonstrate the power of the perceptron.
+ *
+ * It will figure out the line given to it by the user,
+ * then when given a point, will output whether a given point is above
+ * or below a line
+ */
 void perceptronDemo();
+
+
+
+
+/**
+ * This will test the accuracy of the SimpleNeuralNetwork. It compares the given results against
+ * the targets using a set of data that hasn't been backpropagated by the network.
+ *
+ * It then prints a report to the console.
+ * The report includes overall errors and accuracy.
+ * Also, broken down by digits, the expected number of each digit, guessed number, number guessed correctly, and
+ * ratio of number guessed correctly to number guessed.
+ *
+ * @param digitProcessor
+ * @param helper
+ */
 void nnTester(SimpleNeuralNetwork &digitProcessor, MINSTHelper &helper);
+
+
+
+/**
+ * This will train the network through an epoch. 10,000 random images will be pulled from the helper,
+ * and will be fed forward, with the error backpropagated.
+ *
+ * @param nn
+ * @param helper
+ */
 void nnTrainer(SimpleNeuralNetwork &nn, MINSTHelper &helper);
+
+
+
+
+/**
+ * This will train and test a neural network for a given number of epochs.
+ *
+ * @param epochs
+ */
+void nnDemo(unsigned int epochs);
+
+
+
+
+
+
+
+
+
 
 int main()
 {
   srand(time(NULL));
+  nnDemo(30);
+
+
+  return 0;
+}
 
 
 
 
 
+
+
+
+
+
+
+void nnDemo(unsigned int epochs){
   MINSTHelper helper;
 
   helper.ReadMNIST(POPULATION, "train-images-idx3-ubyte");
@@ -33,21 +96,14 @@ int main()
 
   SimpleNeuralNetwork imageProcessor(layers, 3);
 
-  for(int trainPasses = 0; trainPasses < 500; trainPasses++){
+  for(int trainPasses = 0; trainPasses < epochs; trainPasses++){
     std::cout << "On Training Pass " << trainPasses + 1 << std::endl;
     nnTrainer(imageProcessor, helper);
     std::cout << "Calculating Error Information" << std::endl;
     nnTester(imageProcessor, helper);
     std::cout << "\n\n\n";
   }
-
-
-
-  return 0;
 }
-
-
-
 
 
 void nnTrainer(SimpleNeuralNetwork &nn, MINSTHelper &helper){
