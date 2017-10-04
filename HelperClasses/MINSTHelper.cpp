@@ -14,8 +14,9 @@ unsigned int MINSTHelper::ReverseInt (unsigned int i)
   ch4=(i>>24)&255;
   return((unsigned int)ch1<<24)+((unsigned int)ch2<<16)+(( unsigned int)ch3<<8)+ch4;
 }
-void MINSTHelper::ReadMNIST(int NumberOfImages, std::string filepath)
+void MINSTHelper::ReadMINST(unsigned int NumberOfImages, std::string filepath)
 {
+  numberOfImages = NumberOfImages;
   inputs = new Matrix*[NumberOfImages];
   std::ifstream file (filepath,std::ios::binary);
   if (file.is_open())
@@ -53,7 +54,8 @@ void MINSTHelper::ReadMNIST(int NumberOfImages, std::string filepath)
   }
 }
 
-void MINSTHelper::ReadMNISTLabels(int NumberOfImages, std::string filepath){
+void MINSTHelper::ReadMINSTLabels(unsigned int NumberOfImages, std::string filepath){
+  numberOfImages = NumberOfImages;
   targets = new Matrix*[NumberOfImages];
   std::ifstream file (filepath,std::ios::binary);
   if (file.is_open())

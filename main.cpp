@@ -87,8 +87,8 @@ int main()
 void nnDemo(unsigned int epochs){
   MINSTHelper helper;
 
-  helper.ReadMNIST(POPULATION, "train-images-idx3-ubyte");
-  helper.ReadMNISTLabels(POPULATION, "train-labels-idx1-ubyte");
+  helper.ReadMINST(POPULATION, "train-images-idx3-ubyte");
+  helper.ReadMINSTLabels(POPULATION, "train-labels-idx1-ubyte");
 
   const unsigned int LAYER_COUNT = 3;
 
