@@ -65,14 +65,31 @@ void nnDemo(unsigned int epochs);
 
 
 
+
+
+
+
+
+
+
 int main()
 {
   srand(time(NULL));
+
   nnDemo(30);
 
 
   return 0;
 }
+
+
+
+
+
+
+
+
+
 
 
 
