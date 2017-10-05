@@ -13,16 +13,41 @@
 class SimpleNeuralNetwork
 {
 public:
-  // Constructor
+  /**
+   * Constructor
+   *
+   * @param sizes Array of sizes
+   * @param learnRate rate at which nn will learn. More is faster but less accurate.
+   */
   SimpleNeuralNetwork(unsigned int* sizes, double learnRate);
+
+  /**
+   * Deconstructor
+   */
   ~SimpleNeuralNetwork();
 
-  // Trains the network by using groups of inputs
+  /**
+   * Trains according to a set (theoretically faster because of matrix operations... slower for me because I'm stubborn)
+   * @param inputs
+   * @param targets
+   * @param sampleCount
+   */
   void trainWithSets(Matrix* inputs, Matrix* targets, unsigned int sampleCount);
-  // Processes input. The weightedInputs will change an array passed to it aid in backpropagation.
-  // The activatedOutputs gives the actual outputs from each level of the network.
+
+  /**
+   * Processes input and outputs a result.
+   *
+   * @param input
+   * @param activatedOutputs layer by layer output matrix array
+   * @return
+   */
   Matrix feedForward(Matrix &input, Matrix* activatedOutputs);
-  // This is the function we will use outside the class to test things...
+
+  /**
+   * Processes input and outputs a classification matrix.
+   * @param input
+   * @return
+   */
   Matrix processImage(Matrix &input);
 
 
@@ -38,18 +63,69 @@ private:
 
   // Functions for doing things 1 input at a time
 
+  /**
+   * We are using the logarithmic function here, or 1 / (1 + e ^ -x )
+   *
+   * @param weightedInput
+   * @return
+   */
   double logarithmicActivation(double weightedInput);
+
+  /**
+   * Derivative of the logarithmic function, or f(x)(1 - f(x))
+   * @param weightedInput
+   * @return
+   */
   double logarithmicActivationDerivative(double weightedInput);
 
 
 
   // Functions for matrix handling
+
+  /**
+   * Calculates the weighted inputs for each layer
+   *
+   * @param input
+   * @param output
+   * @param layerNumber
+   */
   void matrixCalculateWeightedInput(Matrix &input, Matrix* output, unsigned int layerNumber);
+
+  /**
+   * Applies the logarithmic activation on a matrix level
+   *
+   * @param weightedInput
+   * @param output
+   * @param layerNumber
+   */
   void matrixLogarithmicActivation(Matrix &weightedInput, Matrix* output, unsigned int layerNumber);
+
+  /**
+   * Applies the logarithmic derivative on a matrix level
+   *
+   * @param weightedInput
+   * @return
+   */
   Matrix matrixLogarithmicActivationDerivative(Matrix weightedInput);
+
+  /**
+   * Calculates errors in each layer
+   *
+   * @param outputs
+   * @param target
+   * @param errors
+   * @param activateDerivative
+   */
   void matrixCostFunction(Matrix &outputs, Matrix &target, Matrix* errors, Matrix* activateDerivative);
 
 
+  /**
+   * Changes weights and biases in each layer
+   *
+   * @param activatedOutputs
+   * @param sampleSize
+   * @param input
+   */
   void updateWeights(Matrix[][layers - 1], Matrix activatedOutputs[][layers -1 ], unsigned int sampleSize, Matrix *input);
 
   // Number Generator
