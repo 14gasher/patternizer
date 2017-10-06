@@ -2,10 +2,10 @@
 // Created by Asher Gunsay on 9/23/17.
 //
 
-#include "MINSTHelper.hpp"
+#include "MNIST.hpp"
 
 
-unsigned int MINSTHelper::ReverseInt (unsigned int i)
+unsigned int MNIST::ReverseInt (unsigned int i)
 {
   unsigned char ch1, ch2, ch3, ch4;
   ch1=i&255;
@@ -14,7 +14,7 @@ unsigned int MINSTHelper::ReverseInt (unsigned int i)
   ch4=(i>>24)&255;
   return((unsigned int)ch1<<24)+((unsigned int)ch2<<16)+(( unsigned int)ch3<<8)+ch4;
 }
-void MINSTHelper::ReadMINST(unsigned int NumberOfImages, std::string filepath)
+void MNIST::ReadMNIST(unsigned int NumberOfImages, std::string filepath)
 {
   numberOfImages = NumberOfImages;
   inputs = new Matrix*[NumberOfImages];
@@ -54,7 +54,7 @@ void MINSTHelper::ReadMINST(unsigned int NumberOfImages, std::string filepath)
   }
 }
 
-void MINSTHelper::ReadMINSTLabels(unsigned int NumberOfImages, std::string filepath){
+void MNIST::ReadMNISTLabels(unsigned int NumberOfImages, std::string filepath){
   numberOfImages = NumberOfImages;
   targets = new Matrix*[NumberOfImages];
   std::ifstream file (filepath,std::ios::binary);

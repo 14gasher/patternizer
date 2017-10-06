@@ -28,7 +28,7 @@
  *
  */
 
-class MINSTHelper{
+class MNIST{
 public:
   /**
    * Reads in MNIST data and stores it
@@ -36,7 +36,7 @@ public:
    * @param NumberOfImages
    * @param filepath
    */
-  void ReadMINST(unsigned int NumberOfImages, std::string filepath);
+  void ReadMNIST(unsigned int NumberOfImages, std::string filepath);
 
   /**
    * Reads in MINST labels and stores it
@@ -44,7 +44,7 @@ public:
    * @param NumberOfImages
    * @param filepath
    */
-  void ReadMINSTLabels(unsigned int NumberOfImages, std::string filepath);
+  void ReadMNISTLabels(unsigned int NumberOfImages, std::string filepath);
 
   /**
    * Gets an image in Matrix form from MINST data
@@ -62,7 +62,7 @@ public:
    */
   Matrix* getTargetAtIndex(unsigned int index){return targets[index];};
 
-  ~MINSTHelper(){
+  ~MNIST(){
     for(int i = 0; i < numberOfImages; i++){
       delete inputs[i];
       delete targets[i];

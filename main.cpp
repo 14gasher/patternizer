@@ -2,7 +2,7 @@
 #include "HelperClasses/Matrix.hpp"
 #include <math.h>
 #include "SimpleNeuralNetwork/SimpleNeuralNetwork.hpp"
-#include "HelperClasses/MINSTHelper.hpp"
+#include "HelperClasses/MNIST.hpp"
 #include <iomanip>
 
 
@@ -33,7 +33,7 @@ void perceptronDemo();
  * @param digitProcessor
  * @param helper
  */
-void nnTester(SimpleNeuralNetwork &digitProcessor, MINSTHelper &helper);
+void nnTester(SimpleNeuralNetwork &digitProcessor, MNIST &helper);
 
 
 
@@ -44,7 +44,7 @@ void nnTester(SimpleNeuralNetwork &digitProcessor, MINSTHelper &helper);
  * @param nn
  * @param helper
  */
-void nnTrainer(SimpleNeuralNetwork &nn, MINSTHelper &helper);
+void nnTrainer(SimpleNeuralNetwork &nn, MNIST &helper);
 
 
 
@@ -102,10 +102,10 @@ int main()
 
 
 void nnDemo(unsigned int epochs){
-  MINSTHelper helper;
+  MNIST helper;
 
-  helper.ReadMINST(POPULATION, "train-images-idx3-ubyte");
-  helper.ReadMINSTLabels(POPULATION, "train-labels-idx1-ubyte");
+  helper.ReadMNIST(POPULATION, "train-images-idx3-ubyte");
+  helper.ReadMNISTLabels(POPULATION, "train-labels-idx1-ubyte");
 
   const unsigned int LAYER_COUNT = 3;
 
@@ -123,7 +123,7 @@ void nnDemo(unsigned int epochs){
 }
 
 
-void nnTrainer(SimpleNeuralNetwork &nn, MINSTHelper &helper){
+void nnTrainer(SimpleNeuralNetwork &nn, MNIST &helper){
   for(int sample = 0; sample < 1000; sample++){
     Matrix
             inputs[10],
@@ -154,7 +154,7 @@ void nnTrainer(SimpleNeuralNetwork &nn, MINSTHelper &helper){
 
 
 
-void nnTester(SimpleNeuralNetwork &digitProcessor, MINSTHelper &helper){
+void nnTester(SimpleNeuralNetwork &digitProcessor, MNIST &helper){
   unsigned int guesses[10] = {0};
   unsigned int actuals[10] = {0};
   unsigned int correct[10] = {0};

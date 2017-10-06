@@ -12,7 +12,7 @@ additional classes associated with each of the machine learning types for suppor
 With that jargon out of the way, here is a current list of machine learning things I have built.
 
 1. <a href="#perceptron">Perceptron</a>
-2. <a href="#simpleNN">Simple Neural Network</a> (Basic cost function, 1 hidden layer, prebuilt to read MINST data).
+2. <a href="#simpleNN">Simple Neural Network</a> (Basic cost function, 1 hidden layer, prebuilt to read MNIST data).
 3. <a href="#future"> Future </a>
 
 As I continue teaching myself, this list will grow, so enjoy!
@@ -35,10 +35,10 @@ _____________________
 
 Moving up the chain, I've implemented a simple neural network. It uses the Quadratic Cost Function ((target - output)^2)/2,
 allows you to define a learning rate, and to define the number of inputs, hidden layer neurons, and outputs. It's pretty slick...
-I've managed to get over 90% accuracy on the MINST set within 30 training epochs.
+I've managed to get over 90% accuracy on the MNIST set within 30 training epochs.
 
 In order to make this work, I've created a Matrix library. Unfortunately, it does not use the hardware to speed things up (GPU anyone?),
-but that may come with time. Also, there is a class to convert the MINST data from big to little endian and store it.
+but that may come with time. Also, there is a class to convert the MNIST data from big to little endian and store it.
 
 In main.cpp, you will find main.cpp implementing, training, and testing a SimpleNeuralNetwork instance.
 
