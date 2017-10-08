@@ -19,7 +19,7 @@ public:
    * @param sizes Array of sizes
    * @param learnRate rate at which nn will learn. More is faster but less accurate.
    */
-  SimpleNeuralNetwork(unsigned int* sizes, double learnRate);
+  SimpleNeuralNetwork(unsigned int* sizes, double learnRate, unsigned int epochCount);
 
   /**
    * Deconstructor
@@ -49,6 +49,13 @@ public:
    * @return
    */
   Matrix processImage(Matrix &input);
+
+
+  /**
+   * Gets a visual representation of the first layer of weights (because it's cool) and saves it to a ppm
+   * upon destruction of the network
+   */
+   void addCurrentWeightsToFile();
 
 
 private:
@@ -132,6 +139,10 @@ private:
   double fRand();
   std::default_random_engine engine;
   std::normal_distribution<double> distribution;
+
+  std::string weightsString = "";
+
+
 
 
 

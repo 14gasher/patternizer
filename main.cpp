@@ -111,7 +111,7 @@ void nnDemo(unsigned int epochs){
 
   unsigned int layers[LAYER_COUNT] = {PIXEL_COUNT, 15, 10};
 
-  SimpleNeuralNetwork imageProcessor(layers, 3);
+  SimpleNeuralNetwork imageProcessor(layers, 1, epochs);
 
   for(int trainPasses = 0; trainPasses < epochs; trainPasses++){
     std::cout << "On Training Pass " << trainPasses + 1 << std::endl;
@@ -119,6 +119,7 @@ void nnDemo(unsigned int epochs){
     std::cout << "Calculating Error Information" << std::endl;
     nnTester(imageProcessor, helper);
     std::cout << "\n\n\n";
+    imageProcessor.addCurrentWeightsToFile();
   }
 }
 

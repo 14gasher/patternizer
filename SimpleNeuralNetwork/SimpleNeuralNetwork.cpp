@@ -6,10 +6,11 @@
 #include <vector>
 #include <math.h>
 #include <iostream>
+#include <fstream>
 
 
 
-SimpleNeuralNetwork::SimpleNeuralNetwork(unsigned int* sizes, double learnRate = 0.1) :
+SimpleNeuralNetwork::SimpleNeuralNetwork(unsigned int* sizes, double learnRate = 0.1, unsigned int epochCount = 30) :
   size(sizes), learningRate(learnRate)
 {
   // Initialize the weights to something. Guassian distribution with mean of 0, -1 and 1 at 3 std dev marks best
@@ -33,10 +34,37 @@ SimpleNeuralNetwork::SimpleNeuralNetwork(unsigned int* sizes, double learnRate =
   std::normal_distribution<double> d(0,0.3333333);
   distribution = d;
 
+
+  /*
+   * This is where we initialize the string for the file
+   */
+
+  weightsString += "P3\n";
+//  saveFile << 28 << " " << 29 * 15 << std::endl;
+//  saveFile << 255 << std::endl;
+
+  weightsString += std::to_string(28 * 28) + " " + std::to_string(epochCount * (sizes[1] + 1)) + "\n";
+  weightsString += std::to_string(255) + "\n";
+
 };
 
 SimpleNeuralNetwork::~SimpleNeuralNetwork()
 {
+
+  std::ofstream saveFile;
+  std::string fileName = "nn";
+  for(int i = 0; i < layers - 1; i++){
+    fileName += std::to_string(bias[i]->colCount());
+  }
+  fileName += ".ppm";
+  saveFile.open(fileName);
+
+  saveFile << weightsString;
+
+
+  saveFile.close();
+
+
   // Clean up pointers
   for(unsigned int i = 0; i < layers - 1; i++){
     delete weights[i];
@@ -258,4 +286,32 @@ double SimpleNeuralNetwork::fRand()
 {
   return distribution(engine);
 
+}
+
+
+void SimpleNeuralNetwork::addCurrentWeightsToFile()
+{
+  for(unsigned int i = 0; i < 1; i++){
+    for(unsigned int j = 0; j < weights[i]->rowCount(); j++){
+      for(unsigned int k = 0; k < weights[i]->colCount(); k++){
+        int red = 0;
+        int green = 0;
+        int blue = 0;
+        auto current = weights[i]->get(j,k);
+        if(current > 0){
+          red = static_cast<int>(current * 50);
+          green = 0;
+        } else {
+          red = 0;
+          green = static_cast<int>(current * 50 * -1);
+        }
+        weightsString += std::to_string(red) + " " + std::to_string(green) + " " + std::to_string(blue) + " ";
+      }
+      weightsString += "\n";
+    }
+  }
+  for(int k = 0; k < 28*28; k++){
+    weightsString += "255 255 255 ";
+  }
+  weightsString += "\n";
 }
