@@ -76,7 +76,7 @@ int main()
 {
   srand(time(NULL));
 
-  nnDemo(30);
+  nnDemo(5);
 
 
   return 0;
@@ -111,7 +111,7 @@ void nnDemo(unsigned int epochs){
 
   unsigned int layers[LAYER_COUNT] = {PIXEL_COUNT, 15, 10};
 
-  SimpleNeuralNetwork imageProcessor(layers, 1, epochs);
+  SimpleNeuralNetwork imageProcessor(layers, 5, epochs);
 
   for(int trainPasses = 0; trainPasses < epochs; trainPasses++){
     std::cout << "On Training Pass " << trainPasses + 1 << std::endl;

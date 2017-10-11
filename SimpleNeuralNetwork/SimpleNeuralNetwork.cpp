@@ -43,7 +43,8 @@ SimpleNeuralNetwork::SimpleNeuralNetwork(unsigned int* sizes, double learnRate =
 //  saveFile << 28 << " " << 29 * 15 << std::endl;
 //  saveFile << 255 << std::endl;
 
-  weightsString += std::to_string(28 * 28) + " " + std::to_string(epochCount * (sizes[1] + 1)) + "\n";
+  weightsString += std::to_string(28 * 28) + " " + std::to_string(epochCount * (sizes[1])) + "\n";
+//  weightsString += std::to_string(28 * 28) + " " + std::to_string(epochCount * (sizes[1] + 1)) + "\n";
   weightsString += std::to_string(255) + "\n";
 
 };
@@ -299,19 +300,19 @@ void SimpleNeuralNetwork::addCurrentWeightsToFile()
         int blue = 0;
         auto current = weights[i]->get(j,k);
         if(current > 0){
-          red = static_cast<int>(current * 50);
-          green = 0;
-        } else {
+          green = static_cast<int>(current * 50);
           red = 0;
-          green = static_cast<int>(current * 50 * -1);
+        } else {
+          green = 0;
+          red = static_cast<int>(current * 50 * -1);
         }
         weightsString += std::to_string(red) + " " + std::to_string(green) + " " + std::to_string(blue) + " ";
       }
       weightsString += "\n";
     }
   }
-  for(int k = 0; k < 28*28; k++){
-    weightsString += "255 255 255 ";
-  }
-  weightsString += "\n";
+//  for(int k = 0; k < 28*28; k++){
+//    weightsString += "255 255 255 ";
+//  }
+//  weightsString += "\n";
 }
