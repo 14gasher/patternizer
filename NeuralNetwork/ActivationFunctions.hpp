@@ -34,8 +34,8 @@ private:
    * range (-inf, inf)
    * Continuous
    */
-  static double identityAct();
-  static double identityDrv();
+  static double identityAct(double x);
+  static double identityDrv(double x);
 
   /**
    * Binary Step function
@@ -45,8 +45,8 @@ private:
    * range {0, 1}
    * Continuous except where x == 0
    */
-  static double binaryStepAct();
-  static double binaryStepDrv();
+  static double binaryStepAct(double x);
+  static double binaryStepDrv(double x);
 
   /**
    * Logistic or Soft Step
@@ -56,8 +56,8 @@ private:
    * range (0, 1)
    * Continuous
    */
-  static double logarithmicAct();
-  static double logarithmicDrv();
+  static double logarithmicAct(double x);
+  static double logarithmicDrv(double x);
 
   /**
    * Hyperbolic Tangent
@@ -67,8 +67,8 @@ private:
    * range (-1, 1)
    * Continuous
    */
-  static double tanhAct();
-  static double tanhDrv();
+  static double tanhAct(double x);
+  static double tanhDrv(double x);
 
   /**
    * ArcTangent
@@ -78,8 +78,8 @@ private:
    * range (-pi/2, pi/2)
    * Continuous
    */
-  static double arctanAct();
-  static double arctanDrv();
+  static double arctanAct(double x);
+  static double arctanDrv(double x);
 
   /**
    * Soft Sign
@@ -89,8 +89,8 @@ private:
    * range (-1, 1)
    * Continuous except x = 0
    */
-  static double softSignAct();
-  static double softSignDrv();
+  static double softSignAct(double x);
+  static double softSignDrv(double x);
 
   /**
    * Rectified Linear Unit
@@ -100,8 +100,8 @@ private:
    * range (-inf, inf)
    * Continuous except x = 0
    */
-  static double reluAct();
-  static double reluDrv();
+  static double reluAct(double x);
+  static double reluDrv(double x);
 
   /**
    * Leaky Rectified Linear Unit
@@ -111,8 +111,8 @@ private:
    * range (-inf, inf)
    * Continuous except x = 0
    */
-  static double lreluAct();
-  static double lreluDrv();
+  static double lreluAct(double x);
+  static double lreluDrv(double x);
 
   /**
    * Parametric Rectified Linear Unit
@@ -124,8 +124,8 @@ private:
    *
    * a becomes a learned value as well...
    */
-  static double preluAct();
-  static double preluDrv();
+  static double preluAct(double x, double a);
+  static double preluDrv(double x, double a);
 
   /**
    * Exponential Linear Unit
@@ -140,8 +140,8 @@ private:
    * v = 1.0507 and a = 1.67326, weights are initialized in a special way...
    * Look it up again...
    */
-  static double eluAct();
-  static double eluDrv();
+  static double eluAct(double x, double a, double v);
+  static double eluDrv(double x, double a, double v);
 
   /**
    * Soft Plus
@@ -151,8 +151,8 @@ private:
    * range (0, inf)
    * Continuous
    */
-  static double softPlusAct();
-  static double softPlusDrv();
+  static double softPlusAct(double x);
+  static double softPlusDrv(double x);
 
   /**
    * Bent Identity
@@ -162,8 +162,8 @@ private:
    * range (-inf, inf)
    * Continuous
    */
-  static double bentIdentityAct();
-  static double bentIdentityDrv();
+  static double bentIdentityAct(double x);
+  static double bentIdentityDrv(double x);
 
 };
 

@@ -311,6 +311,7 @@ void SimpleNeuralNetwork::addCurrentWeightsToFile()
       weightsString += "\n";
     }
   }
+  // Uncomment this if you want a divider between blocks
 //  for(int k = 0; k < 28*28; k++){
 //    weightsString += "255 255 255 ";
 //  }

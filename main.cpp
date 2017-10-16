@@ -76,7 +76,7 @@ int main()
 {
   srand(time(NULL));
 
-  nnDemo(5);
+  nnDemo(10);
 
 
   return 0;
@@ -111,7 +111,7 @@ void nnDemo(unsigned int epochs){
 
   unsigned int layers[LAYER_COUNT] = {PIXEL_COUNT, 15, 10};
 
-  SimpleNeuralNetwork imageProcessor(layers, 5, epochs);
+  SimpleNeuralNetwork imageProcessor(layers, 0.1, epochs);
 
   for(int trainPasses = 0; trainPasses < epochs; trainPasses++){
     std::cout << "On Training Pass " << trainPasses + 1 << std::endl;
@@ -122,6 +122,11 @@ void nnDemo(unsigned int epochs){
     imageProcessor.addCurrentWeightsToFile();
   }
 }
+
+
+
+
+
 
 
 void nnTrainer(SimpleNeuralNetwork &nn, MNIST &helper){
@@ -195,6 +200,8 @@ void nnTester(SimpleNeuralNetwork &digitProcessor, MNIST &helper){
               << std::setw(10) << "Ratio:" << std::setw(10) << int(double(correct[index])/guesses[index] * 100) << "%"
               << std::endl;
   }
+
+
 }
 
 
