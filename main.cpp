@@ -76,7 +76,7 @@ int main()
 {
   srand(time(NULL));
 
-  nnDemo(10);
+  nnDemo(1);
 
 
   return 0;

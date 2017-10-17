@@ -23,10 +23,10 @@
  * range (-inf, inf)
  * Continuous
  */
-static double ActivationFunctions::identityAct(double x){
+double ActivationFunctions::identityAct(double x){
   return x;
 }
-static double ActivationFunctions::identityDrv(double x){
+double ActivationFunctions::identityDrv(double x){
   return 1;
 }
 
@@ -38,14 +38,14 @@ static double ActivationFunctions::identityDrv(double x){
  * range {0, 1}
  * Continuous except where x == 0
  */
-static double ActivationFunctions::binaryStepAct(double x){
+double ActivationFunctions::binaryStepAct(double x){
   if(x < 0){
     return 0;
   } else {
     return 1;
   }
 }
-static double ActivationFunctions::binaryStepDrv(double x){
+double ActivationFunctions::binaryStepDrv(double x){
   // We will pretend it is continuous for now....
   return 0;
 }
@@ -58,10 +58,10 @@ static double ActivationFunctions::binaryStepDrv(double x){
  * range (0, 1)
  * Continuous
  */
-static double ActivationFunctions::logarithmicAct(double x){
+double ActivationFunctions::logarithmicAct(double x){
   return 1.0/(1.0+exp(x * (-1.0)));
 }
-static double logarithmicDrv(double x){
+double ActivationFunctions::logarithmicDrv(double x){
   auto result = ActivationFunctions::logarithmicAct(x);
   return result * (1 - result);
 }
@@ -74,10 +74,10 @@ static double logarithmicDrv(double x){
  * range (-1, 1)
  * Continuous
  */
-static double ActivationFunctions::tanhAct(double x){
+double ActivationFunctions::tanhAct(double x){
   return (exp(x) - exp(-1 * x)) / (exp(x) + exp(-1 * x));
 }
-static double ActivationFunctions::tanhDrv(double x){
+double ActivationFunctions::tanhDrv(double x){
   auto result = ActivationFunctions::tanhAct(x);
   return 1 - pow(result, 2);
 }
@@ -90,10 +90,10 @@ static double ActivationFunctions::tanhDrv(double x){
  * range (-pi/2, pi/2)
  * Continuous
  */
-static double ActivationFunctions::arctanAct(double x){
+double ActivationFunctions::arctanAct(double x){
   return atan(x);
 }
-static double ActivationFunctions::arctanDrv(double x){
+double ActivationFunctions::arctanDrv(double x){
   return (1.0) / (pow(x, 2.0) + 1);
 }
 
@@ -105,10 +105,10 @@ static double ActivationFunctions::arctanDrv(double x){
  * range (-1, 1)
  * Continuous except x = 0
  */
-static double ActivationFunctions::softSignAct(double x){
+double ActivationFunctions::softSignAct(double x){
   return (x) / (1 + abs(x));
 }
-static double ActivationFunctions::softSignDrv(double x){
+double ActivationFunctions::softSignDrv(double x){
   return (1.0) / pow(1 + abs(x), 2.0);
 }
 
@@ -120,14 +120,14 @@ static double ActivationFunctions::softSignDrv(double x){
  * range (-inf, inf)
  * Continuous except x = 0
  */
-static double ActivationFunctions::reluAct(double x){
+double ActivationFunctions::reluAct(double x){
   if(x < 0){
     return 0;
   } else {
     return x;
   }
 }
-static double ActivationFunctions::reluDrv(double x){
+double ActivationFunctions::reluDrv(double x){
   // Pretend it is continuous for now...
   if(x < 0) {
     return 0;
@@ -144,14 +144,14 @@ static double ActivationFunctions::reluDrv(double x){
  * range (-inf, inf)
  * Continuous except x = 0
  */
-static double ActivationFunctions::lreluAct(double x){
+double ActivationFunctions::lreluAct(double x){
   if(x < 0){
     return 0.01 * x;
   } else {
     return x;
   }
 }
-static double ActivationFunctions::lreluDrv(double x){
+double ActivationFunctions::lreluDrv(double x){
   // Pretend continuous for now
   if(x < 0){
     return 0.01;
@@ -170,14 +170,14 @@ static double ActivationFunctions::lreluDrv(double x){
  *
  * a becomes a learned value as well...
  */
-static double ActivationFunctions::preluAct(double x, double a){
+double ActivationFunctions::preluAct(double x, double a){
   if(x < 0){
     return a * x;
   } else {
     return x;
   }
 }
-static double ActivationFunctions::preluDrv(double x, double a){
+double ActivationFunctions::preluDrv(double x, double a){
   if(x < 0){
     return a;
   } else {
@@ -198,7 +198,7 @@ static double ActivationFunctions::preluDrv(double x, double a){
  * v = 1.0507 and a = 1.67326, weights are initialized in a special way...
  * Look it up again...
  */
-static double ActivationFunctions::eluAct(double x, double a, double v) {
+double ActivationFunctions::eluAct(double x, double a, double v) {
 
   double halfOfReturn;
 
@@ -210,7 +210,7 @@ static double ActivationFunctions::eluAct(double x, double a, double v) {
 
   return v * halfOfReturn;
 }
-static double ActivationFunctions::eluDrv(double x, double a, double v){
+double ActivationFunctions::eluDrv(double x, double a, double v){
   double halfOfReturn;
 
   if(x < 0){
@@ -230,10 +230,10 @@ static double ActivationFunctions::eluDrv(double x, double a, double v){
  * range (0, inf)
  * Continuous
  */
-static double ActivationFunctions::softPlusAct(double x){
+ double ActivationFunctions::softPlusAct(double x){
   return log(1 + exp(x));
 }
-static double ActivationFunctions::softPlusDrv(double x){
+ double ActivationFunctions::softPlusDrv(double x){
   return 1.0 / (1 + exp(-1.0 * x));
 }
 
@@ -245,9 +245,9 @@ static double ActivationFunctions::softPlusDrv(double x){
  * range (-inf, inf)
  * Continuous
  */
-static double ActivationFunctions::bentIdentityAct(double x){
+double ActivationFunctions::bentIdentityAct(double x){
   return ((pow(pow(x,2) + 1, 0.5) - 1) / 2.0) + x;
 }
-static double ActivationFunctions::bentIdentityDrv(double x){
+double ActivationFunctions::bentIdentityDrv(double x){
   return (x) / (2 * (pow(pow(x,2) + 1, 0.5)) + 1);
 }
