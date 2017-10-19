@@ -77,6 +77,13 @@ the activation function)
 
 8. Repeat.
 
+Another interesting finding is with visualizing how the weights are working. I included the ability to write the weights at
+a given point to an image representation. Look at the two images below:
+[[firstWeights15layers.jpg]] [[firstWeights30layers.jpg]]
+They both are Neural Networks analyzing the MNIST data set. One had 15 layers, and the other 30. The two images are remarkably
+similar for the first 15 columns, suggesting that the addition of neurons looks for additional features. There may be a
+redistribution of features, but that will become clear only with additional testing.
+
 
 
 
