@@ -76,7 +76,7 @@ int main()
 {
   srand(time(NULL));
 
-  nnDemo(1);
+  nnDemo(10);
 
 
   return 0;
@@ -109,9 +109,9 @@ void nnDemo(unsigned int epochs){
 
   const unsigned int LAYER_COUNT = 3;
 
-  unsigned int layers[LAYER_COUNT] = {PIXEL_COUNT, 15, 10};
+  unsigned int layers[LAYER_COUNT] = {PIXEL_COUNT, 30, 10};
 
-  SimpleNeuralNetwork imageProcessor(layers, 0.1, epochs);
+  SimpleNeuralNetwork imageProcessor(layers, 3, epochs);
 
   for(int trainPasses = 0; trainPasses < epochs; trainPasses++){
     std::cout << "On Training Pass " << trainPasses + 1 << std::endl;
@@ -192,14 +192,26 @@ void nnTester(SimpleNeuralNetwork &digitProcessor, MNIST &helper){
 
   }
   std::cout << "\nTotal Errors: " << errors << " Out of 10000 or " << (1 - double(errors)/10000) * 100 << "% accuracy" << std::endl;
+
+  int ratioSum = 0;
   for(int index = 0; index < 10; index++){
+    int ratio;
+    if(guesses[index] == 0){
+      ratio = 0;
+    } else {
+      ratio = int(double(correct[index])/guesses[index] * 100);
+    }
     std::cout << std::setw(10) << "Digit: " << std::setw(3) << index
               << std::setw(12) << "Expected: " << std::setw(10) << actuals[index]
               << std::setw(10) << "Found:" << std::setw(10) << guesses[index]
               << std::setw(10) << "Correct:" << std::setw(10) << correct[index]
-              << std::setw(10) << "Ratio:" << std::setw(10) << int(double(correct[index])/guesses[index] * 100) << "%"
+              << std::setw(10) << "Ratio:" << std::setw(10) << ratio << "%"
               << std::endl;
+
+    ratioSum += ratio;
   }
+
+  std::cout << std::setw(10) << "\nAvg Ratio: " << std::setw(10) << ratioSum / 10 << "%";
 
 
 }

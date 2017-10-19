@@ -141,6 +141,7 @@ private:
   std::normal_distribution<double> distribution;
 
   std::string weightsString = "";
+  std::string weightsString2 = "";
 
 
 

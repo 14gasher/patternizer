@@ -165,7 +165,7 @@ Matrix Matrix::matrixAugment(Matrix& m)
   if(rows != m.rowCount()){
     throw sizesAreDifferent();
   } else {
-    Matrix augmented(rows, columns + colCount());
+    Matrix augmented(rows, columns + m.colCount());
     for(unsigned int i = 0; i < rows; i++){
       for(unsigned int j = 0; j < columns; j++){
         augmented.set(i, j, matrix[i][j]);

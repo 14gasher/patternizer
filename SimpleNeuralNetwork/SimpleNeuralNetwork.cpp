@@ -40,12 +40,12 @@ SimpleNeuralNetwork::SimpleNeuralNetwork(unsigned int* sizes, double learnRate =
    */
 
   weightsString += "P3\n";
-//  saveFile << 28 << " " << 29 * 15 << std::endl;
-//  saveFile << 255 << std::endl;
-
   weightsString += std::to_string(28 * 28) + " " + std::to_string(epochCount * (sizes[1])) + "\n";
-//  weightsString += std::to_string(28 * 28) + " " + std::to_string(epochCount * (sizes[1] + 1)) + "\n";
-  weightsString += std::to_string(255) + "\n";
+  weightsString += "255\n";
+
+  weightsString2 += "P3\n";
+  weightsString2 += std::to_string(29 * sizes[1]) + " " + std::to_string(epochCount * 28) + "\n";
+  weightsString2 += "255\n";
 
 };
 
@@ -63,6 +63,10 @@ SimpleNeuralNetwork::~SimpleNeuralNetwork()
   saveFile << weightsString;
 
 
+  saveFile.close();
+
+  saveFile.open("nnImage2d.ppm");
+  saveFile << weightsString2;
   saveFile.close();
 
 
@@ -299,13 +303,18 @@ void SimpleNeuralNetwork::addCurrentWeightsToFile()
         int green = 0;
         int blue = 0;
         auto current = weights[i]->get(j,k);
-        if(current > 0){
-          green = static_cast<int>(current * 50);
-          red = 0;
-        } else {
-          green = 0;
-          red = static_cast<int>(current * 50 * -1);
-        }
+
+        int middle = 255/2;
+        int change = static_cast<int>(current*40);
+        red = blue = green = middle + change;
+//        if(current > 0){
+//          green = static_cast<int>(current * 50);
+//          red = 0;
+//        } else {
+//          green = 0;
+//          red = static_cast<int>(current * 50 * -1);
+//        }
+
         weightsString += std::to_string(red) + " " + std::to_string(green) + " " + std::to_string(blue) + " ";
       }
       weightsString += "\n";
@@ -316,4 +325,49 @@ void SimpleNeuralNetwork::addCurrentWeightsToFile()
 //    weightsString += "255 255 255 ";
 //  }
 //  weightsString += "\n";
+
+
+  Matrix weirdThought(28,0);
+
+  for (unsigned int j = 0; j < weights[0]->rowCount(); j++)
+  {
+    int rowCount = -1;
+    int colCount = 0;
+    Matrix toAugment(28,28);
+    for (unsigned int k = 0; k < weights[0]->colCount(); k++)
+    {
+
+      if (k % 28 == 0)
+      {
+        colCount = 0;
+        rowCount++;
+      }
+
+
+      toAugment.set(rowCount, colCount, weights[0]->get(j, k));
+      colCount++;
+    }
+    weirdThought = weirdThought.matrixAugment(toAugment);
+  }
+
+  for(int i = 0; i < weirdThought.rowCount(); i++){
+    for(int j = 0; j < weirdThought.colCount(); j++){
+
+      if(j % 28 == 0){
+        weightsString2 += " 0 5 65 ";
+      }
+
+      auto current = weirdThought.get(i,j);
+
+      int middle = 255/2;
+      int change = static_cast<int>(current*40);
+      std::string gray = std::to_string(middle + change);
+      std::string white = std::to_string(255 - abs(change * 2));
+
+//      weightsString2 += gray + " " + gray + " " + gray + " ";
+      weightsString2 += white + " " + white + " " + white + " ";
+    }
+    weightsString2 += "\n";
+  }
+
 }
