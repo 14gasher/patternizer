@@ -30,7 +30,7 @@ class NeuralNetwork
 {
 public:
   NeuralNetwork(std::vector<NNLayer> layers);
-  ~SimpleNeuralNetwork();
+  ~NeuralNetwork();
 
   void train(Matrix* inputs, Matrix* targets, unsigned int sampleCount);
 
@@ -52,6 +52,8 @@ private:
 
 
   std::vector<NNLayer> layerInfo;
+  Matrix** weights;
+  Matrix** bias;
 
 
 };

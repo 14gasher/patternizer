@@ -13,6 +13,9 @@
 SimpleNeuralNetwork::SimpleNeuralNetwork(unsigned int* sizes, double learnRate = 0.1, unsigned int epochCount = 30) :
   size(sizes), learningRate(learnRate)
 {
+  std::normal_distribution<double> d(0,0.3333333);
+  distribution = d;
+
   // Initialize the weights to something. Guassian distribution with mean of 0, -1 and 1 at 3 std dev marks best
   // fine tuning, but will be more likely to change.
   // Also initialize the bias to start with initial weights of 1.
@@ -31,8 +34,7 @@ SimpleNeuralNetwork::SimpleNeuralNetwork(unsigned int* sizes, double learnRate =
 
   }
 
-  std::normal_distribution<double> d(0,0.3333333);
-  distribution = d;
+
 
 
   /*
@@ -65,7 +67,7 @@ SimpleNeuralNetwork::~SimpleNeuralNetwork()
 
   saveFile.close();
 
-  saveFile.open("nnImage2_60.ppm");
+  saveFile.open("nnImage2.ppm");
   saveFile << weightsString2;
   saveFile.close();
 
