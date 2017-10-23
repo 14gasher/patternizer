@@ -18,12 +18,40 @@
 #ifndef NEURALNETWORKS_NEURALNETWORK_HPP
 #define NEURALNETWORKS_NEURALNETWORK_HPP
 
+#include <vector>
+#include <random>
+
+#include "NNLayer.hpp"
+#include "../HelperClasses/Matrix.hpp"
+
+
 
 class NeuralNetwork
 {
 public:
-  NeuralNetwork();
+  NeuralNetwork(std::vector<NNLayer> layers);
+  ~SimpleNeuralNetwork();
+
+  void train(Matrix* inputs, Matrix* targets, unsigned int sampleCount);
+
+  Matrix processImage(Matrix &input);
+
 private:
+
+  Matrix feedForward(Matrix &input, Matrix* activatedOutputs);
+  void setWeightedInput(Matrix &input, Matrix* output, unsigned int layerNumber);
+  void setActivations(Matrix &weightedInput, Matrix* output, unsigned int layerNumber);
+  Matrix setActivationDerivatives(Matrix weightedInput);
+  void setErrors(Matrix &outputs, Matrix &target, Matrix* errors, Matrix* activateDerivative);
+  void updateErrors(Matrix** errors, Matrix** activatedOutputs, unsigned int sampleSize, Matrix *input);
+
+
+  double gaussianRandom();
+  std::default_random_engine engine;
+  std::normal_distribution<double> distribution;
+
+
+  std::vector<NNLayer> layerInfo;
 
 
 };
