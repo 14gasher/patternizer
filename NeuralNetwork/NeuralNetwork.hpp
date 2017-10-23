@@ -32,18 +32,18 @@ public:
   NeuralNetwork(std::vector<NNLayer> layers);
   ~NeuralNetwork();
 
-  void train(Matrix* inputs, Matrix* targets, unsigned int sampleCount);
+  void train(std::vector<Matrix> &inputs, std::vector<Matrix> &targets);
 
   Matrix processImage(Matrix &input);
 
 private:
 
-  Matrix feedForward(Matrix &input, Matrix* activatedOutputs);
-  void setWeightedInput(Matrix &input, Matrix* output, unsigned int layerNumber);
-  void setActivations(Matrix &weightedInput, Matrix* output, unsigned int layerNumber);
-  Matrix setActivationDerivatives(Matrix weightedInput);
-  void setErrors(Matrix &outputs, Matrix &target, Matrix* errors, Matrix* activateDerivative);
-  void updateErrors(Matrix** errors, Matrix** activatedOutputs, unsigned int sampleSize, Matrix *input);
+  Matrix feedForward(Matrix &input, std::vector<Matrix> &activatedOutputs);
+  void setWeightedInput(Matrix &input, std::vector<Matrix> &output, unsigned int layerNumber);
+  void setActivations(Matrix &weightedInput, std::vector<Matrix> &output, unsigned int layerNumber);
+  Matrix setActivationDerivatives(Matrix weightedInput, unsigned int layerNumber);
+  void setErrors(Matrix &outputs, Matrix &target, std::vector<Matrix> &errors, std::vector<Matrix> &activateDerivative);
+  void updateWeights(std::vector< std::vector<Matrix> > &errors, std::vector< std::vector<Matrix> > &activatedOutputs, std::vector<Matrix> &input);
 
 
   double gaussianRandom();

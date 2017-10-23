@@ -53,7 +53,41 @@ NeuralNetwork::~NeuralNetwork(){
   bias = nullptr;
 }
 
-void NeuralNetwork::train(Matrix* inputs, Matrix* targets, unsigned int sampleCount){
+void NeuralNetwork::train(std::vector<Matrix> &inputs, std::vector<Matrix> &targets){
+  auto size = layerInfo.size() - 1;
+  std::vector< std::vector<Matrix> > outputs = {};
+  std::vector<Matrix>  derivatives = {};
+
+
+  std::vector< std::vector<Matrix> > errors = {};
+
+  // For each training sample
+
+  for(unsigned int sample = 0; sample < inputs.size(); sample++){
+
+    // 1. Feed forward
+
+
+    auto calculatedOutput = feedForward(inputs[sample], outputs[sample]);
+
+    // 2. Calculate the Activation Function's derivative
+
+
+    for(unsigned int layer = 0; layer < size; layer++){
+
+      derivatives[layer] = setActivationDerivatives(outputs[sample][layer], layer);
+
+    }
+
+    // 3. Calculate the errors
+
+
+
+    setErrors(calculatedOutput, targets[sample], errors[sample], derivatives);
+  }
+
+  // Now that all errors are calculated for the set, update the weights.
+  updateWeights(errors, outputs, inputs);
 
 }
 
@@ -63,24 +97,24 @@ Matrix NeuralNetwork::processImage(Matrix &input){
 }
 
 
-Matrix NeuralNetwork::feedForward(Matrix &input, Matrix* activatedOutputs){
+Matrix NeuralNetwork::feedForward(Matrix &input, std::vector<Matrix> &activatedOutputs){
   Matrix blah;
   return blah;
 }
-void NeuralNetwork::setWeightedInput(Matrix &input, Matrix* output, unsigned int layerNumber){
+void NeuralNetwork::setWeightedInput(Matrix &input, std::vector<Matrix> &output, unsigned int layerNumber){
 
 }
-void NeuralNetwork::setActivations(Matrix &weightedInput, Matrix* output, unsigned int layerNumber){
+void NeuralNetwork::setActivations(Matrix &input, std::vector<Matrix> &output, unsigned int layerNumber){
 
 }
-Matrix NeuralNetwork::setActivationDerivatives(Matrix weightedInput){
+Matrix NeuralNetwork::setActivationDerivatives(Matrix input, unsigned int layerNumber){
   Matrix blah;
   return blah;
 }
-void NeuralNetwork::setErrors(Matrix &outputs, Matrix &target, Matrix* errors, Matrix* activateDerivative){
+void NeuralNetwork::setErrors(Matrix &outputs, Matrix &target, std::vector<Matrix> &errors, std::vector<Matrix> &derivatives){
 
 }
-void NeuralNetwork::updateErrors(Matrix** errors, Matrix** activatedOutputs, unsigned int sampleSize, Matrix *input){
+void NeuralNetwork::updateWeights(std::vector< std::vector<Matrix> > &errors, std::vector< std::vector<Matrix> > &outputs, std::vector<Matrix> &input){
 
 }
 

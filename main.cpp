@@ -76,7 +76,7 @@ int main()
 {
   srand(time(NULL));
 
-  nnDemo(10);
+  nnDemo(30);
 
 
   return 0;
@@ -109,7 +109,7 @@ void nnDemo(unsigned int epochs){
 
   const unsigned int LAYER_COUNT = 3;
 
-  unsigned int layers[LAYER_COUNT] = {PIXEL_COUNT,15, 10};
+  unsigned int layers[LAYER_COUNT] = {PIXEL_COUNT,300, 10};
 
   SimpleNeuralNetwork imageProcessor(layers, 3, epochs);
 

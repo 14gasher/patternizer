@@ -67,7 +67,7 @@ SimpleNeuralNetwork::~SimpleNeuralNetwork()
 
   saveFile.close();
 
-  saveFile.open("nnImage2.ppm");
+  saveFile.open("nnImage300.ppm");
   saveFile << weightsString2;
   saveFile.close();
 
