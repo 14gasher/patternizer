@@ -21,6 +21,10 @@
 
 class NeuralNetwork
 {
+public:
+  NeuralNetwork();
+private:
+
 
 };
 

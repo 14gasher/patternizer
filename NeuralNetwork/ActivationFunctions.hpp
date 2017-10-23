@@ -18,22 +18,14 @@ class ActivationFunctions
 
 public:
 
-
-private:
   /**
-   * Constructor is private to avoid instantiation of this static class
-   */
-  ActivationFunctions(){};
-
-
-  /**
-   * Identity function
-   * f(x) = x
-   * f'(x) = 1
-   *
-   * range (-inf, inf)
-   * Continuous
-   */
+  * Identity function
+  * f(x) = x
+  * f'(x) = 1
+  *
+  * range (-inf, inf)
+  * Continuous
+  */
   static double identityAct(double x);
   static double identityDrv(double x);
 
@@ -164,6 +156,19 @@ private:
    */
   static double bentIdentityAct(double x);
   static double bentIdentityDrv(double x);
+
+
+
+
+
+private:
+  /**
+   * Constructor is private to avoid instantiation of this static class
+   */
+  ActivationFunctions(){};
+
+
+
 
 };
 

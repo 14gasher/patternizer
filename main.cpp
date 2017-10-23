@@ -109,7 +109,7 @@ void nnDemo(unsigned int epochs){
 
   const unsigned int LAYER_COUNT = 3;
 
-  unsigned int layers[LAYER_COUNT] = {PIXEL_COUNT, 30, 10};
+  unsigned int layers[LAYER_COUNT] = {PIXEL_COUNT, 60, 10};
 
   SimpleNeuralNetwork imageProcessor(layers, 3, epochs);
 
