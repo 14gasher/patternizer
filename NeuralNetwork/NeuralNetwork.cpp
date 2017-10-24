@@ -57,7 +57,7 @@ NeuralNetwork::~NeuralNetwork(){
 void NeuralNetwork::train(std::vector<Matrix> &inputs, std::vector<Matrix> &targets){
   auto size = layerInfo.size() - 1;
   std::vector< std::vector<Matrix> > outputs = {};
-  std::vector<Matrix>  derivatives = {};
+
 
 
   std::vector< std::vector<Matrix> > errors = {};
@@ -66,6 +66,7 @@ void NeuralNetwork::train(std::vector<Matrix> &inputs, std::vector<Matrix> &targ
 
   for(unsigned int sample = 0; sample < inputs.size(); sample++){
 
+
     // 1. Feed forward
     std::vector<Matrix> blankM = {};
     outputs.push_back(blankM);
@@ -73,11 +74,11 @@ void NeuralNetwork::train(std::vector<Matrix> &inputs, std::vector<Matrix> &targ
 
     // 2. Calculate the Activation Function's derivative
 
-
+    std::vector<Matrix>  derivatives = {};
     for(unsigned int layer = 0; layer < size; layer++){
 
-//      auto derv = setActivationDerivatives(outputs[sample][layer], layer);
-//      derivatives.push_back(derv);
+      auto derv = setActivationDerivatives(outputs[sample][layer], layer);
+      derivatives.push_back(derv);
 
     }
 
@@ -129,8 +130,15 @@ Matrix NeuralNetwork::setActivations(Matrix &input, unsigned int layerNumber){
 }
 
 Matrix NeuralNetwork::setActivationDerivatives(Matrix input, unsigned int layerNumber){
-  Matrix blah;
-  return blah;
+  Matrix output(input.rowCount(), 1);
+  for(unsigned int row = 0; row < input.rowCount(); row++){
+    for(unsigned int col = 0; col < input.colCount(); col++){
+      auto c = input.get(row, col);
+      auto res = layerInfo[layerNumber].derivative(c);
+      output.set(row, col, res);
+    }
+  }
+  return output;
 }
 void NeuralNetwork::setErrors(Matrix &outputs, Matrix &target, std::vector<Matrix> &errors, std::vector<Matrix> &derivatives){
 
