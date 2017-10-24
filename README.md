@@ -124,14 +124,6 @@ ______
 ## <a id="future">Future</a>
 
 
-The next step will be making the "Simple" Neural Network more complex. This includes adding regularization techniques,
-having the option of different cost functions including the cross-entropy cost function, and adding momentum to the gradient
-descent.
-
-Once these additional things are added, I believe I will be home free to continue onwards to a "deep" Network.
-
-Other areas to be pursued:
-
 **Genetic algorithms** -- Finds probable optimizations on weird data sets
                    (Most value if can take 1 pound, 500 different things with different weights and values...)
 
