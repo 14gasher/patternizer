@@ -61,58 +61,7 @@ void nnTrainer(SimpleNeuralNetwork &nn, MNIST &helper);
 void nnDemo(unsigned int epochs);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-int main()
-{
-//  srand(time(NULL));
-//
-//  nnDemo(30);
-
-
-  MNIST helper;
-
-  helper.ReadMNIST(POPULATION, "train-images-idx3-ubyte");
-  helper.ReadMNISTLabels(POPULATION, "train-labels-idx1-ubyte");
-
-
-  NNLayer layer0;
-  layer0.activation = ActivationFunctions::logarithmicAct;
-  layer0.derivative = ActivationFunctions::logarithmicDrv;
-  layer0.neuronCount = 28 * 28;
-
-  NNLayer layer1;
-  layer1.activation = ActivationFunctions::logarithmicAct;
-  layer1.derivative = ActivationFunctions::logarithmicDrv;
-  layer1.neuronCount = 15;
-
-  NNLayer layer2;
-  layer2.activation = ActivationFunctions::logarithmicAct;
-  layer2.derivative = ActivationFunctions::logarithmicDrv;
-  layer2.neuronCount = 10;
-
-
-  std::vector<NNLayer> layers = {layer0, layer1, layer2};
-
-
-  NeuralNetwork nn(layers);
-
+void train(NeuralNetwork &nn, MNIST &helper){
 
   for(int sample = 0; sample < 1000; sample++){
     std::vector<Matrix>
@@ -141,6 +90,132 @@ int main()
     nn.train(inputs, targets);
 
   }
+
+}
+
+void test(NeuralNetwork &nn, MNIST &helper){
+
+  unsigned int guesses[10] = {0};
+  unsigned int actuals[10] = {0};
+  unsigned int correct[10] = {0};
+
+  int errors = 0;
+  for(unsigned int test = 50000; test < 60000; test++){
+    auto firstData = helper.getInputAtIndex(test);
+    Matrix in(firstData->rowCount() * firstData->colCount(), 1);
+    unsigned int count = 0;
+    for(unsigned int i = 0; i < firstData->rowCount(); i++){
+      for(unsigned int j = 0; j < firstData->colCount(); j++){
+        in.set(count, 0, firstData->get(i, j));
+        count++;
+      }
+    }
+    Matrix input = in;
+    auto result = nn.processImage(input);
+
+    guesses[result.getLargestComponentIndexInColumnVector()]++;
+    actuals[helper.getTargetAtIndex(test)->getLargestComponentIndexInColumnVector()]++;
+
+    if(result.getLargestComponentIndexInColumnVector() != helper.getTargetAtIndex(test)->getLargestComponentIndexInColumnVector()){
+      errors++;
+    } else {
+      correct[result.getLargestComponentIndexInColumnVector()]++;
+    }
+
+
+
+  }
+  std::cout << "\nTotal Errors: " << errors << " Out of 10000 or " << (1 - double(errors)/10000) * 100 << "% accuracy" << std::endl;
+
+  int ratioSum = 0;
+  for(int index = 0; index < 10; index++){
+    int ratio;
+    if(guesses[index] == 0){
+      ratio = 0;
+    } else {
+      ratio = int(double(correct[index])/guesses[index] * 100);
+    }
+    std::cout << std::setw(10) << "Digit: " << std::setw(3) << index
+              << std::setw(12) << "Expected: " << std::setw(10) << actuals[index]
+              << std::setw(10) << "Found:" << std::setw(10) << guesses[index]
+              << std::setw(10) << "Correct:" << std::setw(10) << correct[index]
+              << std::setw(10) << "Ratio:" << std::setw(10) << ratio << "%"
+              << std::endl;
+
+    ratioSum += ratio;
+  }
+
+  std::cout << std::setw(10) << "\nAvg Ratio: " << std::setw(10) << ratioSum / 10 << "%";
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int main()
+{
+  srand(time(NULL));
+//
+//  nnDemo(30);
+
+
+  MNIST helper;
+
+  helper.ReadMNIST(POPULATION, "train-images-idx3-ubyte");
+  helper.ReadMNISTLabels(POPULATION, "train-labels-idx1-ubyte");
+
+
+  NNLayer layer0;
+  layer0.activation = ActivationFunctions::logarithmicAct;
+  layer0.derivative = ActivationFunctions::logarithmicDrv;
+  layer0.neuronCount = 28 * 28;
+
+  NNLayer layer1;
+  layer1.activation = ActivationFunctions::logarithmicAct;
+  layer1.derivative = ActivationFunctions::logarithmicDrv;
+  layer1.neuronCount = 60;
+
+  NNLayer layer2;
+  layer2.activation = ActivationFunctions::logarithmicAct;
+  layer2.derivative = ActivationFunctions::logarithmicDrv;
+  layer2.neuronCount = 10;
+
+
+  std::vector<NNLayer> layers = {layer0, layer1, layer2};
+
+
+  NeuralNetwork nn(layers);
+
+  for(int epoch = 0; epoch < 10; epoch++){
+    std::cout << "\n\nOn epoch: " << epoch << std::endl;
+    train(nn, helper);
+    test(nn, helper);
+  }
+
+
+
+
+
+
+
 
 
 
