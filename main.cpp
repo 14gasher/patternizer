@@ -6,6 +6,10 @@
 #include <iomanip>
 
 
+#include "NeuralNetwork/NeuralNetwork.hpp"
+#include "NeuralNetwork/ActivationFunctions.hpp"
+
+
 const unsigned int POPULATION = 60000;
 const unsigned int PIXEL_COUNT = 784;
 
@@ -72,11 +76,76 @@ void nnDemo(unsigned int epochs);
 
 
 
+
+
+
 int main()
 {
-  srand(time(NULL));
+//  srand(time(NULL));
+//
+//  nnDemo(30);
 
-  nnDemo(30);
+
+  MNIST helper;
+
+  helper.ReadMNIST(POPULATION, "train-images-idx3-ubyte");
+  helper.ReadMNISTLabels(POPULATION, "train-labels-idx1-ubyte");
+
+
+  NNLayer layer0;
+  layer0.activation = ActivationFunctions::logarithmicAct;
+  layer0.derivative = ActivationFunctions::logarithmicDrv;
+  layer0.neuronCount = 28 * 28;
+
+  NNLayer layer1;
+  layer1.activation = ActivationFunctions::logarithmicAct;
+  layer1.derivative = ActivationFunctions::logarithmicDrv;
+  layer1.neuronCount = 15;
+
+  NNLayer layer2;
+  layer2.activation = ActivationFunctions::logarithmicAct;
+  layer2.derivative = ActivationFunctions::logarithmicDrv;
+  layer2.neuronCount = 10;
+
+
+  std::vector<NNLayer> layers = {layer0, layer1, layer2};
+
+
+  NeuralNetwork nn(layers);
+
+
+  for(int sample = 0; sample < 1000; sample++){
+    std::vector<Matrix>
+            inputs,
+            targets;
+
+    inputs = targets = {};
+
+
+    for(int r = 0; r < 10; r++){
+      auto randomIndex = rand() % 50000;
+      auto oldI = *helper.getInputAtIndex(randomIndex);
+      Matrix in(PIXEL_COUNT, 1);
+      unsigned int count = 0;
+      for(unsigned int rows = 0; rows < oldI.rowCount(); rows++){
+        for(unsigned int cols = 0; cols < oldI.colCount(); cols++){
+          in.set(count, 0, oldI.get(rows, cols));
+          count++;
+        }
+      }
+
+      inputs.push_back(in);
+      targets.push_back(*(helper.getTargetAtIndex(randomIndex)));
+
+    }
+    nn.train(inputs, targets);
+
+  }
+
+
+
+
+
 
 
   return 0;
