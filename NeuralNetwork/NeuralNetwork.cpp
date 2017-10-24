@@ -167,6 +167,42 @@ std::vector<Matrix> NeuralNetwork::setErrors(Matrix &outputs, Matrix &target, st
 }
 void NeuralNetwork::updateWeights(std::vector< std::vector<Matrix> > &errors, std::vector< std::vector<Matrix> > &outputs, std::vector<Matrix> &input){
 
+  double learningRate = 3.0;
+
+  auto bound = layerInfo.size() - 1;
+  for(int layer = 0; layer < bound; layer++){
+    Matrix layerError;
+    Matrix biasError(bias[layer]->rowCount(), 1);
+
+    for(int sample = 0; sample < input.size(); sample++){
+      Matrix transposedOut;
+
+      if(layer == bound - 1){
+        transposedOut = input[sample].transposition();
+      } else {
+        transposedOut = outputs[sample][bound - 2 - layer].transposition();
+      }
+
+      Matrix sampleLayerError = errors[sample][layer].matrixMultiplation(transposedOut);
+      if(sample == 0){
+        layerError = sampleLayerError;
+      } else{
+        layerError = layerError.addition(sampleLayerError);
+      }
+
+      biasError.addition(errors[sample][bound-1-layer]);
+
+    }
+    double modLearningRate = learningRate / input.size() * -1.0;
+    layerError = layerError.scalar(modLearningRate);
+    *(weights[bound - 1 - layer]) = weights[bound - 1 -layer]->addition(layerError);
+
+    biasError = biasError.scalar(modLearningRate);
+    *(bias[layer]) = bias[layer]->addition(biasError);
+  }
+
+
+
 }
 
 
