@@ -26,6 +26,11 @@ public:
    */
   Matrix(const Matrix &oldMatrix);
 
+  /**
+   * Move Constructor
+   */
+   Matrix(Matrix &&oldMatrix);
+
 
   /**
    * Assignment operator
@@ -33,6 +38,14 @@ public:
    * @return
    */
   Matrix& operator=(const Matrix& oldMatrix);
+
+  /**
+   * Move Assignment
+   *
+   * @param oldMatrix
+   * @return
+   */
+  Matrix& operator=(Matrix &&oldMatrix);
 
 
   /**
@@ -194,6 +207,7 @@ private:
    * @return copy matrix
    */
   Matrix& copyMatrix(const Matrix& oldMatrix);
+  Matrix& moveMatrix(Matrix &oldMatrix);
 
 };
 

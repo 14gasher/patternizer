@@ -60,6 +60,7 @@ void NeuralNetwork::train(std::vector<Matrix> &inputs, std::vector<Matrix> &targ
 
 
 
+
   std::vector< std::vector<Matrix> > errors = {};
 
   // For each training sample
@@ -70,43 +71,47 @@ void NeuralNetwork::train(std::vector<Matrix> &inputs, std::vector<Matrix> &targ
     // 1. Feed forward
     std::vector<Matrix> blankM = {};
     outputs.push_back(blankM);
-    auto calculatedOutput = feedForward(inputs[sample], outputs[sample]);
+
+    std::vector<Matrix> weightedInputs = {};
+    auto calculatedOutput = feedForward(inputs[sample], outputs[sample], weightedInputs);
 
     // 2. Calculate the Activation Function's derivative
 
     std::vector<Matrix>  derivatives = {};
     for(unsigned int layer = 0; layer < size; layer++){
-
-      auto derv = setActivationDerivatives(outputs[sample][layer], layer);
+      auto derv = setActivationDerivatives(weightedInputs[layer], layer);
       derivatives.push_back(derv);
-
     }
 
+
+
+
     // 3. Calculate the errors
+    auto err = setErrors(calculatedOutput, targets[sample], derivatives);
 
-
-
-//    setErrors(calculatedOutput, targets[sample], errors[sample], derivatives);
+    errors.push_back( err );
   }
 
   // Now that all errors are calculated for the set, update the weights.
-//  updateWeights(errors, outputs, inputs);
+  updateWeights(errors, outputs, inputs);
 
 }
 
 Matrix NeuralNetwork::processImage(Matrix &input){
-  Matrix blah;
-  return blah;
+  std::vector<Matrix> filler = {};
+  std::vector<Matrix> filler2 = {};
+  return feedForward(input, filler, filler2);
 }
 
 
-Matrix NeuralNetwork::feedForward(Matrix &input, std::vector<Matrix> &activatedOutputs){
+Matrix NeuralNetwork::feedForward(Matrix &input, std::vector<Matrix> &activatedOutputs, std::vector<Matrix> &weightedInputs){
   auto bound = layerInfo.size() - 1;
   auto toUse = input;
   for(unsigned int layer = 0; layer < bound; layer++){
-    Matrix weightedInput = setWeightedInput(toUse, layer);
+    Matrix weightedInput( setWeightedInput(toUse, layer) );
     toUse = setActivations(weightedInput, layer);
     activatedOutputs.push_back(toUse);
+    weightedInputs.push_back(weightedInput);
   }
   return toUse;
 }
@@ -115,7 +120,8 @@ Matrix NeuralNetwork::feedForward(Matrix &input, std::vector<Matrix> &activatedO
 Matrix NeuralNetwork::setWeightedInput(Matrix &input, unsigned int layerNumber){
   Matrix beforeBias = weights[layerNumber]->matrixMultiplation(input);
   Matrix biasLayer = *(bias[layerNumber]);
-  return beforeBias.addition(biasLayer);
+  Matrix afterBias = beforeBias.addition(biasLayer);
+  return afterBias;
 }
 Matrix NeuralNetwork::setActivations(Matrix &input, unsigned int layerNumber){
   Matrix output(input.rowCount(), 1);
@@ -140,7 +146,23 @@ Matrix NeuralNetwork::setActivationDerivatives(Matrix input, unsigned int layerN
   }
   return output;
 }
-void NeuralNetwork::setErrors(Matrix &outputs, Matrix &target, std::vector<Matrix> &errors, std::vector<Matrix> &derivatives){
+std::vector<Matrix> NeuralNetwork::setErrors(Matrix &outputs, Matrix &target, std::vector<Matrix> &derivatives){
+  std::vector<Matrix> e = {};
+  unsigned int bound = layerInfo.size() - 1;
+  Matrix endGoal = target.scalar(-1);
+  Matrix errorSum = outputs.addition(endGoal);
+  Matrix endDerivative = derivatives[bound - 1];
+
+  e.push_back(errorSum.hadamardProduct(endDerivative));
+
+  for(unsigned int i = 1; i < bound; i++){
+    Matrix transposeOfWeights = weights[bound - i]->transposition();
+    Matrix layerError = e[i - 1];
+    Matrix derivative = derivatives[bound - i - 1];
+    e.push_back(transposeOfWeights.matrixMultiplation(layerError).hadamardProduct(derivative));
+  }
+
+  return e;
 
 }
 void NeuralNetwork::updateWeights(std::vector< std::vector<Matrix> > &errors, std::vector< std::vector<Matrix> > &outputs, std::vector<Matrix> &input){

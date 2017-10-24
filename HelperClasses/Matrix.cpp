@@ -24,11 +24,22 @@ Matrix::Matrix(const Matrix &oldMatrix)
   copyMatrix(oldMatrix);
 }
 
+Matrix::Matrix(Matrix &&oldMatrix)
+{
+  moveMatrix(oldMatrix);
+}
+
 Matrix& Matrix::operator=(const Matrix &oldMatrix)
 {
   // Clean up those pointers!
   pointerCleanUp();
   return copyMatrix(oldMatrix);
+}
+
+Matrix& Matrix::operator=(Matrix &&oldMatrix)
+{
+  pointerCleanUp();
+  return moveMatrix(oldMatrix);
 }
 
 Matrix::~Matrix()
@@ -48,6 +59,17 @@ Matrix& Matrix::copyMatrix(const Matrix &oldMatrix)
       matrix[i][j] = oldMatrix.get(i,j);
     }
   }
+  return *this;
+}
+
+Matrix& Matrix::moveMatrix(Matrix &oldMatrix){
+  rows = oldMatrix.rowCount();
+  columns = oldMatrix.colCount();
+  allocated = true;
+
+  oldMatrix.allocated = false;
+  std::swap(matrix, oldMatrix.matrix);
+
   return *this;
 }
 

@@ -38,11 +38,11 @@ public:
 
 private:
 
-  Matrix feedForward(Matrix &input, std::vector<Matrix> &activatedOutputs);
+  Matrix feedForward(Matrix &input, std::vector<Matrix> &activatedOutputs, std::vector<Matrix> &weightedInputs);
   Matrix setWeightedInput(Matrix &input, unsigned int layerNumber);
   Matrix setActivations(Matrix &weightedInput, unsigned int layerNumber);
   Matrix setActivationDerivatives(Matrix weightedInput, unsigned int layerNumber);
-  void setErrors(Matrix &outputs, Matrix &target, std::vector<Matrix> &errors, std::vector<Matrix> &activateDerivative);
+  std::vector<Matrix> setErrors(Matrix &outputs, Matrix &target, std::vector<Matrix> &activateDerivative);
   void updateWeights(std::vector< std::vector<Matrix> > &errors, std::vector< std::vector<Matrix> > &activatedOutputs, std::vector<Matrix> &input);
 
 
