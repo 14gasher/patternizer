@@ -13,7 +13,8 @@ With that jargon out of the way, here is a current list of machine learning thin
 
 1. <a href="#perceptron">Perceptron</a>
 2. <a href="#simpleNN">Simple Neural Network</a> (Basic cost function, 1 hidden layer, prebuilt to read MNIST data).
-3. <a href="#future"> Future </a>
+3. <a href="#modularNN">Modular Neural Network</a>
+4. <a href="#future"> Future </a>
 
 As I continue teaching myself, this list will grow, so enjoy!
 
@@ -83,6 +84,37 @@ a given point to an image representation. Look at the two images below:
 They both are Neural Networks analyzing the MNIST data set. One had 15 layers, and the other 30. The two images are remarkably
 similar for the first 15 columns, suggesting that the addition of neurons looks for additional features. There may be a
 redistribution of features, but that will become clear only with additional testing.
+
+
+
+
+
+_____________________
+
+## <a id="modularNN">Modular Neural Network</a>
+
+### Introduction
+
+There are a few differences between this and the previous neural network. The biggest aspect is that this is very modular.
+A NNLayer struct was defined which allows traits to be defined by the user. An activation function class was defined to provide
+many different types of functions to explore, but becuase the struct can use any function and it's derivative, you
+are not limited. Minor fixes to the algorithm lead to a huge performance boost. With 60 hidden neurons, I was able to reach
+96% accuracy in less than 10 training epochs. Finally, this network can be used for both shallow and deep networks.
+
+
+### Things to add:
+
+1. Regularization techniques
+2. Choosing cost functions
+3. Weight initialization options
+
+### Things to explore:
+
+1. Network of small shallow networks vs one large shallow network
+2. Which activation function works the best?
+3. Which activation function combination works the best?
+4. Vanishing Gradient
+
 
 
 
