@@ -17,6 +17,7 @@ class ActivationFunctions
 {
 
 public:
+  class Undefined{};
 
   /**
   * Identity function
@@ -149,7 +150,7 @@ public:
   /**
    * Bent Identity
    * f(x) = ((x^2 + 1)^{1/2} - 1)/2 + x
-   * f'(x) = ( x) / (2(x^2 + 1)^{1/2}) + 1
+   * f'(x) = ( x) / ((x^2 + 1)^{1/2}) + 1
    *
    * range (-inf, inf)
    * Continuous

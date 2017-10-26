@@ -14,7 +14,10 @@
 NeuralNetwork::NeuralNetwork(std::vector<NNLayer> layers){
   layerInfo = layers;
 
-  std::normal_distribution<double> d(0,0.3333333);
+  std::default_random_engine eng (std::chrono::system_clock::now().time_since_epoch().count());
+  engine = eng;
+
+  std::normal_distribution<double> d(0,0.3333333333);
   distribution = d;
 
   // Initialize the weights to something. Guassian distribution with mean of 0, -1 and 1 at 3 std dev marks best
@@ -54,7 +57,7 @@ NeuralNetwork::~NeuralNetwork(){
   bias = nullptr;
 }
 
-void NeuralNetwork::train(std::vector<Matrix> &inputs, std::vector<Matrix> &targets){
+void NeuralNetwork::train(std::vector<Matrix> &inputs, std::vector<Matrix> &targets, double learningRate){
   auto size = layerInfo.size() - 1;
   std::vector< std::vector<Matrix> > outputs = {};
 
@@ -93,7 +96,7 @@ void NeuralNetwork::train(std::vector<Matrix> &inputs, std::vector<Matrix> &targ
   }
 
   // Now that all errors are calculated for the set, update the weights.
-  updateWeights(errors, outputs, inputs);
+  updateWeights(errors, outputs, inputs, learningRate);
 
 }
 
@@ -137,6 +140,9 @@ Matrix NeuralNetwork::setActivations(Matrix &input, unsigned int layerNumber){
 
 Matrix NeuralNetwork::setActivationDerivatives(Matrix input, unsigned int layerNumber){
   Matrix output(input.rowCount(), 1);
+
+
+
   for(unsigned int row = 0; row < input.rowCount(); row++){
     for(unsigned int col = 0; col < input.colCount(); col++){
       auto c = input.get(row, col);
@@ -144,6 +150,7 @@ Matrix NeuralNetwork::setActivationDerivatives(Matrix input, unsigned int layerN
       output.set(row, col, res);
     }
   }
+
   return output;
 }
 std::vector<Matrix> NeuralNetwork::setErrors(Matrix &outputs, Matrix &target, std::vector<Matrix> &derivatives){
@@ -152,6 +159,11 @@ std::vector<Matrix> NeuralNetwork::setErrors(Matrix &outputs, Matrix &target, st
   Matrix endGoal = target.scalar(-1);
   Matrix errorSum = outputs.addition(endGoal);
   Matrix endDerivative = derivatives[bound - 1];
+
+
+//  errorSum.print();
+//  endDerivative.print();
+
 
   e.push_back(errorSum.hadamardProduct(endDerivative));
 
@@ -165,9 +177,9 @@ std::vector<Matrix> NeuralNetwork::setErrors(Matrix &outputs, Matrix &target, st
   return e;
 
 }
-void NeuralNetwork::updateWeights(std::vector< std::vector<Matrix> > &errors, std::vector< std::vector<Matrix> > &outputs, std::vector<Matrix> &input){
+void NeuralNetwork::updateWeights(std::vector< std::vector<Matrix> > &errors, std::vector< std::vector<Matrix> > &outputs, std::vector<Matrix> &input, double learningRate){
 
-  double learningRate = 3.0;
+
 
   auto bound = layerInfo.size() - 1;
   for(int layer = 0; layer < bound; layer++){
@@ -189,6 +201,9 @@ void NeuralNetwork::updateWeights(std::vector< std::vector<Matrix> > &errors, st
       } else{
         layerError = layerError.addition(sampleLayerError);
       }
+
+//      sampleLayerError.print();
+
 
       biasError.addition(errors[sample][bound-1-layer]);
 

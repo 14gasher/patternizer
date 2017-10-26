@@ -20,6 +20,7 @@
 
 #include <vector>
 #include <random>
+#include <chrono>
 
 #include "NNLayer.hpp"
 #include "../HelperClasses/Matrix.hpp"
@@ -32,9 +33,15 @@ public:
   NeuralNetwork(std::vector<NNLayer> layers);
   ~NeuralNetwork();
 
-  void train(std::vector<Matrix> &inputs, std::vector<Matrix> &targets);
+  void train(std::vector<Matrix> &inputs, std::vector<Matrix> &targets, double learningRate);
 
   Matrix processImage(Matrix &input);
+
+  void printWeights(){
+    for(int i = 0; i < layerInfo.size() - 1; i++){
+      weights[i]->print();
+    }
+  };
 
 private:
 
@@ -43,7 +50,7 @@ private:
   Matrix setActivations(Matrix &weightedInput, unsigned int layerNumber);
   Matrix setActivationDerivatives(Matrix weightedInput, unsigned int layerNumber);
   std::vector<Matrix> setErrors(Matrix &outputs, Matrix &target, std::vector<Matrix> &activateDerivative);
-  void updateWeights(std::vector< std::vector<Matrix> > &errors, std::vector< std::vector<Matrix> > &activatedOutputs, std::vector<Matrix> &input);
+  void updateWeights(std::vector< std::vector<Matrix> > &errors, std::vector< std::vector<Matrix> > &activatedOutputs, std::vector<Matrix> &input, double learningRate);
 
 
   double gaussianRandom();

@@ -228,7 +228,7 @@ void Matrix::print(){
   for(unsigned int i = 0; i < rows; i++){
     std::cout <<"| ";
     for(unsigned int j = 0; j < columns; j++){
-       std::cout << std::setw(5) << matrix[i][j] << " ";
+       std::cout << std::setw(15) << matrix[i][j] << " ";
     }
     std::cout << "|" << std::endl;
   }

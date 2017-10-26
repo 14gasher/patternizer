@@ -46,6 +46,9 @@ double ActivationFunctions::binaryStepAct(double x){
   }
 }
 double ActivationFunctions::binaryStepDrv(double x){
+  if(x == 0){
+    throw Undefined();
+  }
   // We will pretend it is continuous for now....
   return 0;
 }
@@ -109,6 +112,9 @@ double ActivationFunctions::softSignAct(double x){
   return (x) / (1 + abs(x));
 }
 double ActivationFunctions::softSignDrv(double x){
+  if(x == 0){
+    throw Undefined();
+  }
   return (1.0) / pow(1 + abs(x), 2.0);
 }
 
@@ -129,6 +135,9 @@ double ActivationFunctions::reluAct(double x){
 }
 double ActivationFunctions::reluDrv(double x){
   // Pretend it is continuous for now...
+  if(x == 0){
+    throw Undefined();
+  }
   if(x < 0) {
     return 0;
   } else {
@@ -153,6 +162,9 @@ double ActivationFunctions::lreluAct(double x){
 }
 double ActivationFunctions::lreluDrv(double x){
   // Pretend continuous for now
+  if(x == 0){
+    throw Undefined();
+  }
   if(x < 0){
     return 0.01;
   } else {
@@ -178,6 +190,9 @@ double ActivationFunctions::preluAct(double x, double a){
   }
 }
 double ActivationFunctions::preluDrv(double x, double a){
+  if(x == 0){
+    throw Undefined();
+  }
   if(x < 0){
     return a;
   } else {
@@ -211,6 +226,11 @@ double ActivationFunctions::eluAct(double x, double a, double v) {
   return v * halfOfReturn;
 }
 double ActivationFunctions::eluDrv(double x, double a, double v){
+
+  if(x == 0){
+    throw Undefined();
+  }
+
   double halfOfReturn;
 
   if(x < 0){
@@ -240,14 +260,17 @@ double ActivationFunctions::eluDrv(double x, double a, double v){
 /**
  * Bent Identity
  * f(x) = ((x^2 + 1)^{1/2} - 1)/2 + x
- * f'(x) = ( x) / (2(x^2 + 1)^{1/2}) + 1
+ * f'(x) = ( x) / ((x^2 + 1)^{1/2}) + 1
  *
  * range (-inf, inf)
  * Continuous
  */
 double ActivationFunctions::bentIdentityAct(double x){
+
   return ((pow(pow(x,2) + 1, 0.5) - 1) / 2.0) + x;
 }
 double ActivationFunctions::bentIdentityDrv(double x){
-  return (x) / (2 * (pow(pow(x,2) + 1, 0.5)) + 1);
+
+
+  return (x) / (pow(pow(x,2) + 1, 0.5)) + 1;
 }
